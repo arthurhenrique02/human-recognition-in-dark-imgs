@@ -37,36 +37,3 @@ class ImageManipulation:
         cv2.imshow("frame", img)
         if cv2.waitKey(5000) and 0xFF == ord("q"):
             cv2.destroyAllWindows()
-
-    def enchance_image_light(self, img_input: str) -> np.ndarray:
-        """
-        Enchance image light
-
-        :param img: np.ndarray
-            Image to be enchanced
-        :param value: int
-            Value to be added to image
-        :return: np.ndarray
-            Enchanced image
-        """
-        img = cv2.imread(img_input, 0)
-
-        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(15, 15))
-
-        return clahe.apply(img)
-
-    def enchance_image_contrast(
-        self, img: np.ndarray, value: float = 1.5
-    ) -> np.ndarray:
-        """
-        Enchance image contrast
-
-        :param img: np.ndarray
-            Image to be enchanced
-        :param value: float
-            Value to be multiplied to image
-        :return: np.ndarray
-            Enchanced image
-        """
-        img = cv2.multiply(img, np.array([value]))
-        return img
