@@ -22,7 +22,7 @@ class ImageManipulation:
         """
         # get image and track it
         # img_cap = cv2.imread(path)
-        results = self.__model.track(path, persist=True)
+        results = self.__model.track(path, persist=True, classes=0)
         plotted_frame = results[0].plot()
 
         return plotted_frame
