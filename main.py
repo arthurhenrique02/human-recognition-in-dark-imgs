@@ -1,42 +1,18 @@
-# from ultralytics import YOLO
-# import cv2
-
-# model = YOLO("yolov8n.pt")
-
-# PATH = "images/teste4.jpeg"
-
-# img_cap = cv2.imread(PATH)
-
-# results = model.track(img_cap, persist=True)
-
-# frame = results[0].plot()
-
-# cv2.imshow("frame", frame)
-
-# # input("Press Enter to continue...")
-# if cv2.waitKey(25000) and 0xFF == ord("q"):
-#     cv2.destroyAllWindows()
+import cv2
 
 from utils.ImgManipulation import ImageManipulation
-import cv2
+from utils.enchance import dehaze
+
 
 img_manipulation = ImageManipulation()
 
-img = img_manipulation.enchance_image_light("images/people/2015_06851.jpg")
+img = cv2.imread("images/people/2015_06829.png")
 
-a = cv2.imwrite("2015_06851_enchanced.jpg", img)
+img_d = dehaze(img, w=5, alpha=0.1, omega=0.73, p=0.1, eps=1e-3, reduce=False)
 
-print(a)
+created_enchanced_img = cv2.imwrite("2015_06829_enchanced.png", img_d)
 
-if a:
-    b = img_manipulation.track_image("2015_06851_enchanced.jpg")
+if created_enchanced_img:
+    tracked_imgs_objs = img_manipulation.track_image("2015_06829_enchanced.png")
 
-    img_manipulation.show_image_with_objects_tracked(b)
-
-# img_manipulation.show_image_with_objects_tracked(img)
-
-# img = img_manipulation.track_image("images/people/2015_06851.jpg")
-
-# tracked_img = img_manipulation.track_image(img)
-
-# img_manipulation.show_image_with_objects_tracked(img)
+    img_manipulation.show_image_with_objects_tracked(tracked_imgs_objs)
